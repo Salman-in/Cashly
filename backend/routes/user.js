@@ -66,7 +66,7 @@ userRouter.post("/signup",async (req,res)=>{
     })
 
     const balance = UserAccount.balance;
-    console.log("Balance:",balance)
+    // console.log("Balance:",balance)
     const token = jwt.sign({
         userId
     },JWT_SECRET)
@@ -116,7 +116,7 @@ userRouter.post("/signin",async (req,res)=>{
         })
 
         const balance = account.balance;
-        console.log("Balance:",balance)
+        // console.log("Balance:",balance)
 
         const token = jwt.sign({
             userId
