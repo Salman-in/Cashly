@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const bcrypt = require("bcrypt");
-const { z } = require("z");
+const { z } = require('zod');
 const { User } = require("../db");
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = require('../config');
@@ -143,7 +143,7 @@ userRouter.put("/updateinfo",authMiddleware,async (req,res)=>{
     }  
 })
 
-router.get("/bulk",async (req,res)=>{
+userRouter.get("/bulk",async (req,res)=>{
     const queryparam = req.query.filter || "";
 
     const foundUser = await User.find({
