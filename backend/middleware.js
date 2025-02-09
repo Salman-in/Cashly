@@ -3,9 +3,13 @@ const jwt = require("jsonwebtoken");
 
 const authMiddleware = (req, res, next) => {
     const authHeader = req.headers.authorization;
+    //Use Bearer in authorization header
+    //Also can use any of the token(signin/signup) in the header
 
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
-        return res.status(403).json({});
+        return res.status(403).json({
+            message: "no auth header"
+        });
     }
     //Accessing the second element after splitting
     const token = authHeader.split(' ')[1];
@@ -16,11 +20,15 @@ const authMiddleware = (req, res, next) => {
             req.userId = decoded.userId;
             next(); 
         } else {
-            res.status(403).json({});
+            res.status(403).json({
+                message: "Invalid token"
+            });
         }
         
     } catch (e) {
-        return res.status(403).json({});
+        return res.status(403).json({
+            message: "Invalid token catch"
+        });
     }
 }
 

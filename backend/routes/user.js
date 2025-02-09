@@ -6,7 +6,6 @@ const { User } = require("../db");
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = require('../config');
 const { authMiddleware } = require('../middleware');
-const router = require('.');
 
 const userRouter = express.Router();
 
@@ -74,26 +73,31 @@ userRouter.post("/signup",async (req,res)=>{
 
 //ZOD
 const signinBody = z.object({
-    username: z.string().email(),
+    username: z.string(),
 	password: z.string()
 })
 
 userRouter.post("/signin",async (req,res)=>{
-    const { result }= signinBody.safeParse(req.body);
-    if(!result){
-        res.status(411).json({
-            message: "Incorrect Details."
-        })
+    const parseResult = signinBody.safeParse(req.body);
+    
+    if (!parseResult.success) {
+        return res.status(400).json({
+            message: "Incorrect details."
+        });
     }
 
-    const { username,password } = req.body;
+     const { username, password } = req.body;
 
-    const userfound = await User.findOne({
-        username
-    })
+    const userfound = await User.findOne({ username });
 
-    const hashedPassword = userfound.password; 
-    const decodedPass = bcrypt.compare(password,hashedPassword)
+     const hashedPassword = userfound.password;
+    const isPasswordValid = await bcrypt.compare(password, hashedPassword);
+
+    if (!isPasswordValid) {
+        return res.status(401).json({
+            message: "Invalid credentials"
+        });
+    } 
 
     if (userfound) {
         const userId = userfound._id;
@@ -104,7 +108,9 @@ userRouter.post("/signin",async (req,res)=>{
         res.status(200).json({
         message:"Signed in successfully",
         token:token,
-        userId:userId
+        userId:userId,
+        // HashedPassword:hashedPassword,
+        // realPassword:password
     })
     } else {
         res.status(411).json({
@@ -144,28 +150,22 @@ userRouter.put("/updateinfo",authMiddleware,async (req,res)=>{
 })
 
 userRouter.get("/bulk",async (req,res)=>{
-    const queryparam = req.query.filter || "";
+    const queryparam = req.query.filter?.trim() || "";
+
+    console.log("Query parameter:", queryparam); //To log the query sent by the user//
 
     const foundUser = await User.find({
         $or: [
-            {
-                firstName: {
-                    "$regex": queryparam
-                }
-            },
-            {
-                lastName: {
-                    "$regex": queryparam
-                }
-            }
+            { firstname: { "$regex": queryparam, "$options": "i" } },
+            { lastname: { "$regex": queryparam, "$options": "i" } }
         ]
     })
 
     res.json({
         user: foundUser.map(user => ({
             username: user.username,
-            firstName: user.firstName,
-            lastName: user.lastName,
+            firstname: user.firstname,
+            lastname: user.lastname,
             _id: user._id
         }))
     });

@@ -3,7 +3,7 @@ require('dotenv').config({ path: '.env' }); //To configure the env path
 const MONGO_URL = process.env.MONGO_URL;
 mongoose.connect(MONGO_URL);
 
-const userSchema = mongoose.Schema({
+const userSchema = new mongoose.Schema({
     firstname: String,
     lastname: String,
     username: String,
