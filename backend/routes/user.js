@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const bcrypt = require("bcrypt");
 const { z } = require('zod');
-const { User } = require("../db");
+const { User, Account } = require("../db");
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = require('../config');
 const { authMiddleware } = require('../middleware');
@@ -60,6 +60,13 @@ userRouter.post("/signup",async (req,res)=>{
     //Creating a token
     const userId = userfortoken._id;
 
+    const UserAccount = await Account.create({
+        userId,
+        balance: 1 + Math.random() * 10000
+    })
+
+    const balance = UserAccount.balance;
+    console.log("Balance:",balance)
     const token = jwt.sign({
         userId
     },JWT_SECRET)
@@ -67,7 +74,8 @@ userRouter.post("/signup",async (req,res)=>{
     res.status(200).json({
         message:"Signed up successfully!",
         UserId:userId,
-        token:token
+        token:token,
+        balance:balance
     })
 })
 
@@ -90,7 +98,7 @@ userRouter.post("/signin",async (req,res)=>{
 
     const userfound = await User.findOne({ username });
 
-     const hashedPassword = userfound.password;
+     const hashedPassword = userfound.password;   
     const isPasswordValid = await bcrypt.compare(password, hashedPassword);
 
     if (!isPasswordValid) {
@@ -101,6 +109,15 @@ userRouter.post("/signin",async (req,res)=>{
 
     if (userfound) {
         const userId = userfound._id;
+
+        //Fetching the account details of the user
+        const account = await Account.findOne({
+            userId
+        })
+
+        const balance = account.balance;
+        console.log("Balance:",balance)
+
         const token = jwt.sign({
             userId
         },JWT_SECRET);
@@ -109,6 +126,7 @@ userRouter.post("/signin",async (req,res)=>{
         message:"Signed in successfully",
         token:token,
         userId:userId,
+        balance:balance
         // HashedPassword:hashedPassword,
         // realPassword:password
     })
