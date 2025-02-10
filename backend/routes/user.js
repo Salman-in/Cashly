@@ -170,7 +170,7 @@ userRouter.put("/updateinfo",authMiddleware,async (req,res)=>{
 userRouter.get("/bulk",async (req,res)=>{
     const queryparam = req.query.filter?.trim() || "";
 
-    console.log("Query parameter:", queryparam); //To log the query sent by the user//
+    // console.log("Query parameter:", queryparam); //To log the query sent by the user//
 
     const foundUser = await User.find({
         $or: [
