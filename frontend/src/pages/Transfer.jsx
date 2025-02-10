@@ -1,12 +1,14 @@
 import { useSearchParams } from 'react-router-dom';
 import axios from "axios";
 import { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 
 export const Transfer = () => {
     const [searchParams] = useSearchParams();
     const id = searchParams.get("id");
     const name = searchParams.get("name");
     const [amount, setAmount] = useState(0);
+    const navigate = useNavigate();
 
     // Fallback to a default name if 'name' is not available
     const displayName = name ? name : "User";
@@ -48,7 +50,10 @@ export const Transfer = () => {
                                             Authorization: "Bearer " + localStorage.getItem("token")
                                         }
                                     });
-                                }}
+                                    alert("Transfer initiated successfully!");
+                                    navigate("/dashboard");
+                                }
+                            }
                                 className="justify-center rounded-md text-sm font-medium ring-offset-background transition-colors h-10 px-4 py-2 w-full bg-green-500 text-white"
                             >
                                 Initiate Transfer

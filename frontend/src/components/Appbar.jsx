@@ -1,4 +1,4 @@
-import { FaUserCircle } from 'react-icons/fa'; // Optionally use an icon library for the avatar
+import { FaUserCircle } from 'react-icons/fa'; 
 
 export const Appbar = () => {
     return (
@@ -9,7 +9,7 @@ export const Appbar = () => {
 
             <div className="flex items-center space-x-4">
                 <div className="text-sm text-slate-600">
-                    Hello, Salman!
+                    Hello, "username"
                 </div>
 
                 <div className="relative">
