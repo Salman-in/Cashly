@@ -26,7 +26,7 @@ userRouter.post("/signup",async (req,res)=>{
 
        const result = signupBody.safeParse(req.body);   
         if(!result.success){
-            res.status(411).json({
+            return res.status(411).json({
                 message: "Incorrect Details."
             })
         }

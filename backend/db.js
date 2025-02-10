@@ -6,19 +6,19 @@ mongoose.connect(MONGO_URL);
 const userSchema = new mongoose.Schema({
     firstname: {
         type: String,
-        required: true,
+        // required: true,
         trim: true,
         maxLength: 50
     },
     lastname: {
         type: String,
-        required: true,
+        // required: true,
         trim: true,
         maxLength: 50
     },
     username: {
         type: String,
-        required: true,
+        // required: true,
         unique: true,
         trim: true,
         lowercase: true,
@@ -27,7 +27,7 @@ const userSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: true,
+        // required: true,
         minLength: 6
     },
 })
