@@ -9,25 +9,32 @@ import axios from "axios";
 
 export const Signin = () => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [token, setToken] = useState("");
 
-  const findUser = async (email, password) => {
+  //I did it!!!!!!!!!
+  const findUser = async (username, password) => {
     try {
-      const res = await axios.post("http://localhost:3000/api/v1/account/signin", {
-        email,
+      const res = await axios.post("http://localhost:3000/api/v1/user/signin", {
+        username,
         password,
       });
+  
+      // Log the token directly from the response
+      console.log("Token:", res.data.token);
+      return res.data;
 
-      return res.data; // { token: "..." } will contain the token for validation
     } catch (error) {
-      console.error("Signin failed:", error);
+      console.error("Signin failed:", error.response?.data || error.message);
       return null;
     }
   };
+  
 
   const handleSignIn = async () => {
-    const data = await findUser(email, password);
+    const data = await findUser(username, password);
+    console.log("Data:", data);
 
     if (data?.token) {
       localStorage.setItem("token", data.token);
@@ -43,7 +50,7 @@ export const Signin = () => {
         <div className="rounded-lg bg-white w-80 text-center p-4 h-max px-4">
           <Heading label={"Sign in"} />
           <SubHeading label={"Enter your credentials to access your account"} />
-          <InputBox placeholder="email@cashly.com" label={"Email"} onChange={(e) => setEmail(e.target.value)} />
+          <InputBox placeholder="email@cashly.com" label={"Email"} onChange={(e) => setUsername(e.target.value)} />
           <InputBox placeholder="123456789" label={"Password"} type="password" onChange={(e) => setPassword(e.target.value)} />
           <div className="pt-8">
             <Button label={"Sign in"} onPress={handleSignIn} />

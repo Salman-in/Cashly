@@ -94,11 +94,11 @@ userRouter.post("/signin",async (req,res)=>{
         });
     }
 
-     const { username, password } = req.body;
+    const { username, password } = req.body;
 
     const userfound = await User.findOne({ username });
 
-     const hashedPassword = userfound.password;   
+    const hashedPassword = userfound.password;   
     const isPasswordValid = await bcrypt.compare(password, hashedPassword);
 
     if (!isPasswordValid) {
