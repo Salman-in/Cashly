@@ -1,18 +1,23 @@
+import { FaUserCircle } from 'react-icons/fa'; // Optionally use an icon library for the avatar
 
 export const Appbar = () => {
-    return <div className="shadow-xs h-14 flex justify-between">
-        <div className="flex flex-col justify-center h-full ml-4">
-            Cashly
-        </div>
-        <div className="flex">
-            <div className="flex flex-col justify-center h-full mr-4">
-                Hello
+    return (
+        <div className="shadow-md h-16 flex justify-between items-center px-6 sm:px-8 bg-white">
+            <div className="font-bold text-2xl text-slate-700 tracking-wide">
+                Cashly
             </div>
-            <div className="rounded-full h-12 w-12 bg-slate-200 flex justify-center mt-1 mr-2">
-                <div className="flex flex-col justify-center h-full text-xl">
-                    U
+
+            <div className="flex items-center space-x-4">
+                <div className="text-sm text-slate-600">
+                    Hello, Salman!
+                </div>
+
+                <div className="relative">
+                    <div className="w-12 h-12 rounded-full bg-slate-200 flex justify-center items-center shadow-md hover:bg-slate-300 cursor-pointer transition-all duration-200">
+                        <FaUserCircle className="text-slate-700 text-2xl" />
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    );
 }
