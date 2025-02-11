@@ -5,7 +5,8 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 import { Button } from "../components/Button"
 import { useNavigate } from "react-router-dom"
-const backend_url = import.meta.env.VITE_BACKEND_URL; 
+const backend_url = import.meta.env.VITE_BACKEND_URL.trim().replace(/\/$/, "");
+ 
 
 export const Dashboard = () => {
 

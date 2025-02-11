@@ -3,7 +3,8 @@ import { Button } from "./Button";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Loading from "./Loading";
-const backend_url = import.meta.env.VITE_BACKEND_URL; 
+const backend_url = import.meta.env.VITE_BACKEND_URL.trim().replace(/\/$/, "");
+ 
 
 export const Users = () => {
     const [users, setUsers] = useState([]);

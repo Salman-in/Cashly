@@ -6,7 +6,12 @@ import { InputBox } from "../components/InputBox";
 import { SubHeading } from "../components/SubHeading";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-const backend_url = import.meta.env.VITE_BACKEND_URL; 
+const backend_url = import.meta.env.VITE_BACKEND_URL.trim().replace(/\/$/, "");
+ 
+
+console.log("Backend URL:", backend_url);
+console.log(`${backend_url}/api/v1/user/signup`);
+
 
 export const Signup = () => {
   const [firstname, setFirstName] = useState("");

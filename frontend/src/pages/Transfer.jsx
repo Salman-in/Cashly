@@ -3,7 +3,8 @@ import axios from "axios";
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 
-const backend_url = import.meta.env.VITE_BACKEND_URL; 
+const backend_url = import.meta.env.VITE_BACKEND_URL.trim().replace(/\/$/, "");
+ 
 
 export const Transfer = () => {
     const [searchParams] = useSearchParams();
