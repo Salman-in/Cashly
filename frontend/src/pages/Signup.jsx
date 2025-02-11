@@ -39,8 +39,11 @@ export const Signup = () => {
                     firstname,
                     lastname,
                     password,
-                  });
-
+                  },{
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
                   localStorage.setItem("token", response.data.token);
                   navigate("/dashboard");
                 } catch (error) {
