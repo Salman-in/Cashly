@@ -5,7 +5,9 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 import { Button } from "../components/Button"
 import { useNavigate } from "react-router-dom"
+import 'dotenv/config';
 
+const backend_url = process.env.REACT_APP_BACKEND_URL;
 
 export const Dashboard = () => {
 
@@ -16,7 +18,7 @@ export const Dashboard = () => {
 
     // const getFirstname = async () => {
     //     try {
-    //         const response = await axios.get("http://localhost:3000/api/v1/user/updateinfo", {
+    //         const response = await axios.get("backend_url/api/v1/user/updateinfo", {
     //             headers: {
     //                 Authorization: "Bearer " + localStorage.getItem("token")
     //             }
@@ -29,7 +31,7 @@ export const Dashboard = () => {
     // }
     const getBalance = async () => {
         try {
-            const response = await fetch("http://localhost:3000/api/v1/account/balance", {
+            const response = await fetch("backend_url/api/v1/account/balance", {
                 headers: {
                     Authorization: "Bearer " + localStorage.getItem("token"),
                 },

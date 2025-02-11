@@ -3,6 +3,9 @@ import { Button } from "./Button";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Loading from "./Loading";
+import 'dotenv/config';
+
+const backend_url = process.env.REACT_APP_BACKEND_URL;
 
 export const Users = () => {
     const [users, setUsers] = useState([]);
@@ -16,7 +19,7 @@ export const Users = () => {
             setLoading(true);
             setError(null);
             console.log(`API CALL ${filter}`);
-            const response = await axios.get(`http://localhost:3000/api/v1/user/bulk?filter=${filter}`);
+            const response = await axios.get(`backend_url/api/v1/user/bulk?filter=${filter}`);
             setUsers(response.data.user || []);
         } catch (err) {
             setError("Failed to fetch users");

@@ -6,6 +6,9 @@ import { InputBox } from "../components/InputBox"
 import { SubHeading } from "../components/SubHeading"
 import axios from "axios";
 import { useNavigate } from "react-router-dom"
+import 'dotenv/config';
+
+const backend_url = process.env.REACT_APP_BACKEND_URL;
 
 export const Signup = () => {
     const [firstname, setFirstName] = useState("");
@@ -33,7 +36,7 @@ export const Signup = () => {
         }} placeholder="123456789" label={"Password"} />
         <div className="pt-8">
           <Button onPress={async () => {
-            const response = await axios.post("http://localhost:3000/api/v1/user/signup", {
+            const response = await axios.post("backend_url/api/v1/user/signup", {
               username,
               firstname,
               lastname,

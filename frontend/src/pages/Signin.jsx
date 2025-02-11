@@ -6,6 +6,9 @@ import { InputBox } from "../components/InputBox";
 import { SubHeading } from "../components/SubHeading";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import 'dotenv/config';
+
+const backend_url = process.env.REACT_APP_BACKEND_URL;
 
 export const Signin = () => {
   const navigate = useNavigate();
@@ -15,7 +18,7 @@ export const Signin = () => {
   //I did it!!!!!!!!!
   const findUser = async (username, password) => {
     try {
-      const res = await axios.post("http://localhost:3000/api/v1/user/signin", {
+      const res = await axios.post("backend_url/api/v1/user/signin", {
         username,
         password,
       });
