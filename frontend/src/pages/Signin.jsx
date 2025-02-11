@@ -11,7 +11,6 @@ export const Signin = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [token, setToken] = useState("");
 
   //I did it!!!!!!!!!
   const findUser = async (username, password) => {

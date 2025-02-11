@@ -52,10 +52,12 @@ export const Dashboard = () => {
         <div className="m-8">
             <Balance value={amount} />
             <Users />
+            <div className="mt-4 flex justify-end">
             <Button label={"Logout"} onPress={()=>{
                 localStorage.removeItem("token");
                 navigate("/signin");
             }} />
+            </div>
         </div>
     </div>
 }
