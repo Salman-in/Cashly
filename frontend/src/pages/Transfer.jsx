@@ -2,9 +2,8 @@ import { useSearchParams } from 'react-router-dom';
 import axios from "axios";
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import 'dotenv/config';
 
-const backend_url = process.env.REACT_APP_BACKEND_URL;
+const backend_url = import.meta.env.VITE_BACKEND_URL; 
 
 export const Transfer = () => {
     const [searchParams] = useSearchParams();
@@ -45,7 +44,7 @@ export const Transfer = () => {
                             </div>
                             <button
                                 onClick={async () => {
-                                    await axios.post("backend_url/api/v1/account/transfer", {
+                                    await axios.post(`${backend_url}/api/v1/account/transfer`, {
                                         to: id,
                                         amount
                                     }, {
